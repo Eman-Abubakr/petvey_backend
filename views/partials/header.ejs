@@ -1,0 +1,81 @@
+<!--
+PetVey webapp
+Group project
+Comp 229 Sec009
+Fall 2021
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="One pet survey webapp" />
+  <meta name="author" content="PetVey Group" />
+  <title>PetVey - Pet Survey</title>
+  <link rel="shortcut icon" type="image/png" href="/images/favicon.png"/>
+  <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+  <link rel='stylesheet' href='/@fortawesome/fontawesome-free/css/all.min.css' />
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <!-- Main Nav bar  -->  
+  <nav class="navbar navbar-expand-lg navbar-dark text-uppercase fixed-top" id="mainNav" style="background-color: #23becd;">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="/images/petvey-w.png" alt="logo" style="width:100px; margin-left: 20px; margin-right: 20px;">
+      </a>
+      <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+       </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item mx-0 mx-lg-1">
+              <% if (title == "Home") { %>
+                  <a class="nav-link active py-3 px-0 px-lg-3 rounded" href="/">
+              <% } else { %>
+                  <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">
+              <% } %>            
+                  <i class="fas fa-paw"></i> Home Page</a>
+              </a>
+            </li>   
+            <li class="nav-item dropdown ms-auto"> 
+              <% if (title == "Survey List" || title == "Add a new Survey") { %>
+                <a class="nav-link active dropdown-toggle py-3 px-0 px-lg-3 rounded" href="#" role="button" data-bs-toggle="dropdown">
+                  <i class="fas fa-paw"></i> Pet Survey
+                </a>
+              <% } else { %>
+                <a class="nav-link dropdown-toggle py-3 px-0 px-lg-3 rounded" href="#" role="button" data-bs-toggle="dropdown">
+                  <i class="fas fa-paw"></i> Pet Survey
+                </a>
+              <% } %>  
+              <ul class="dropdown-menu ms-auto">
+                <li><a class="dropdown-item" href="/survey/list">View Surveys</a></li>
+                <li><a class="dropdown-item" href="/survey/add">Create a Survey</a></li>
+              </ul>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <% if (title == "about") { %>
+                  <a class="nav-link active py-3 px-0 px-lg-3 rounded" href="/about">
+              <% } else { %>
+                  <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/about">
+              <% } %>            
+              <i class="fas fa-paw"></i> About
+              </a>
+            </li>
+
+            <% if(typeof displayName == 'string' && displayName) { %>
+              <li class="navbar-text py-3 px-0 px-lg-3 rounded"><i class="fas fa-user"></i> Hello, <%= displayName %></li>
+              <li class="nav-item mx-0 mx-lg-1"><a href="/logout" class="nav-link active py-3 px-0 px-lg-3 rounded">
+                <i class="fas fa-sign-out-alt"></i> Logout </a></li>
+            <% } else { %>
+              <li class="nav-item mx-0 mx-lg-1"><a href="/login" class="nav-link active py-3 px-0 px-lg-3 rounded">
+                <i class="fas fa-sign-in-alt"></i> Login </a></li>
+            <% } %>         
+            
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>

@@ -1,0 +1,94 @@
+<!--
+PetVey webapp
+Group project
+Comp 229 Sec009
+Fall 2021
+-->
+
+<%- include ../partials/header.ejs %>
+
+<!-- Content for the Add_Edit page -->
+<div class="container">
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            <h2><%= title %></h2>
+
+            <form id="surveyForm" class="form" method="POST">
+                <div class="form-group">
+                    <input type="hidden"
+                        name="id"
+                        value="<%= survey._id %>"
+                    >
+                    <label for="surveyTextField">Title</label>
+                    <input type="text" class="form-control"
+                        id="surveyTextField"
+                        placeholder="Crazy Cat Dad Survey"
+                        name="Title" 
+                        value="<%= survey.Title %>"
+                        required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="statusTextField">Survey Creator</label>
+                    <input type="text" class="form-control"
+                    id="statusTextField"
+                    placeholder="John Doe"
+                    name="Author" 
+                    value="<%= survey.Author %>"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="surveyTextField">Description</label>
+                    <input type="text" class="form-control"
+                        id="surveyTextField"
+                        placeholder="A survey for cat dads......"
+                        name="Description" 
+                        value="<%= survey.Description %>"
+                        required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="surveyTextField">Start Date</label>
+                    <input type="date" class="form-control"
+                        id="surveyTextField"
+                        name="StartDate"
+                        placeholder="2021/05/21" 
+                        value="<%= survey.StartDate %>"
+                        required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="surveyTextField">End Date</label>
+                    <input type="date" class="form-control"
+                        id="surveyTextField"
+                        name="ExpiryDate" 
+                        value="<%= survey.ExpiryDate %>"
+                        required>
+                </div>
+                
+                <div id="questionGroupContainer"></div>     
+                
+                <div>
+                <button class="btn btn-primary" id="addQuestionButton">
+                    <i class="fas fa-edit"></i> 
+                    Add Question
+                </button>
+                
+                <a href="/survey/list" class="btn btn-secondary"  id="floated">
+                    <i class="fas fa-undo"></i> 
+                    Cancel
+                </a>
+                
+                <button class="btn btn-warning" type="submit"  id="floated">
+                    <i class="fas fa-edit"></i> 
+                    Submit
+                </button>
+                    </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<%- include ../partials/footer.ejs %>
