@@ -134,7 +134,7 @@ module.exports.processEditPage = (req, res, next) => {
     Author: req.body.Author,
     Description: req.body.Description,
     StartDate: req.body.StartDate,
-    ExpiryDate: req.body.EndDate,
+    ExpiryDate: req.body.ExpiryDate,
   });
 
   Survey.updateOne({ _id: id }, updatedSurvey, (err) => {

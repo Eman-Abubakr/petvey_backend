@@ -10,25 +10,35 @@ let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
 let passport = require('passport');
-
 let surveyController = require('../controllers/survey');
+   
+// helper function for guard purpose
+function requireAuth(req, res, next)
+{
+    //check if the user logged in
+    if(!req.isAuthenticated())
+    {
+        return res.redirect('/login');
+    }
+    next();
+}
 
 // Router for lists surveys function
 router.get('/list', surveyController.surveyList);
 
 // Router for survey details function
-router.get('/details/:id', surveyController.details);
+router.get('/details/:id', requireAuth, surveyController.details);
 
 // Routers for edit functions
-router.get('/edit/:id', surveyController.displayEditPage);
-router.post('/edit/:id', surveyController.processEditPage);
+router.get('/edit/:id', requireAuth,surveyController.displayEditPage);
+router.post('/edit/:id', requireAuth,surveyController.processEditPage);
 
 // Router for Delete function
-router.get('/delete/:id', surveyController.performDelete);
+router.get('/delete/:id', requireAuth,surveyController.performDelete);
 
 // Routers for Add functions
-router.get('/add', surveyController.displayAddPage);
-router.post('/add', surveyController.processAddPage);
+router.get('/add', requireAuth,surveyController.displayAddPage);
+router.post('/add', requireAuth,surveyController.processAddPage);
 
 
 module.exports = router;
