@@ -14,7 +14,6 @@ let surveyModel = mongoose.Schema(
     CreationDate: String,
     StartDate: String,
     ExpiryDate: String,
-    Respondents: [],
     Title: String,
     Author: String,
     Description: String,

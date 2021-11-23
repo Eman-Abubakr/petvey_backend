@@ -11,12 +11,11 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-
-let session = require('express-session');
-let passport = require('passport');
-let passportLocal = require('passport-local');
+let session = require("express-session");
+let passport = require("passport");
+let passportLocal = require("passport-local");
 let localStrategy = passportLocal.Strategy;
-let flash = require('connect-flash');
+let flash = require("connect-flash");
 
 //Database setup
 let mongoose = require("mongoose");
@@ -37,6 +36,7 @@ mongoDB.once("open", () => {
 var indexRouter = require("../routes/index");
 var usersRouter = require("../routes/users");
 var surveyRouter = require("../routes/survey");
+var apiRouter = require("../routes/api");
 
 var app = express();
 
@@ -52,11 +52,13 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.static(path.join(__dirname, "../node_modules")));
 
 //setup express session
-app.use(session({
-  secret: "SomeSecret",
-  saveUninitialized: false,
-  resave: false
-}));
+app.use(
+  session({
+    secret: "SomeSecret",
+    saveUninitialized: false,
+    resave: false,
+  })
+);
 
 // initialize flash
 app.use(flash());
@@ -65,9 +67,8 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 // create a User Model Instance
-let userModel = require('../models/user');
+let userModel = require("../models/user");
 let User = userModel.User;
 
 // implement a User Authentication Strategy
@@ -80,6 +81,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/survey", surveyRouter);
+app.use("/api", apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
