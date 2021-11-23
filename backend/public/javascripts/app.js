@@ -20,7 +20,7 @@ if (getTitle == "Survey List") {
   }
 }
 
-if (getPage == "Add") {
+if (getPage == "Add" || "Edit") {
   const questionGroupContainer = document.getElementById(
     "questionGroupContainer"
   );
