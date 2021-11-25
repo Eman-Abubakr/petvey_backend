@@ -1,0 +1,96 @@
+<!--
+PetVey webapp
+Group project
+Comp 229 Sec009
+Fall 2021
+-->
+
+<!-- <%- include ../partials/header.ejs }} -->
+<app-header></app-header>
+  <!-- Main Content -->
+  <main class="container">
+    <div class="row">
+        <h2>SURVEY lIST</h2>
+        <br>
+        <div>
+            <!-- <% if(typeof displayName == 'string' && displayName) { }} -->
+            <!-- Add button -->
+            <a routerLink="/survey/add" class="btn btn-success align-self-end mb-3" role="button"> 
+                <i class="fas fa-plus-circle"></i> 
+                Add a new Survey
+            </a>  
+            <!-- <%  -->
+        } }}              
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+                <!-- Header Row-->
+                <tr>
+                    <!-- <% if(typeof displayName == 'string' && displayName) { }} -->
+                        <th class="text-center">Title</th>
+                        <th class="text-center">Survey Creator</th>
+                        <th class="text-center">Description</th>
+                        <th class="text-center">Start Date</th>
+                        <th class="text-center">End Date</th>
+                        <th class="text-center" colspan="2">Actions</th>
+                    <!-- <% } else { }}
+                        <th class="text-center">Title</th>
+                        <th class="text-center">Survey Creator</th>
+                        <th class="text-center">Description</th>
+                        <th class="text-center">Start Date</th>
+                        <th class="text-center">End Date</th>
+                    <% } }} -->
+
+                </tr>
+
+                <!-- Repeatable Template Row -->
+
+                <!-- <% for(let count = 0; count < surveys.length; count++) { }} -->
+                    <tr *ngFor="let item of surveyList">
+
+                        <!-- <% if(typeof displayName == 'string' && displayName) { }} -->
+                        <td class="text-center">
+                            <a routerLink="/survey/details/{{ item._id }}">
+                                {{ item.Title }}
+                            </a> 
+                            </td>
+                            <td class="text-center">{{ item.Author}}</td>
+                            <td class="text-center">{{ item.Description }}</td>
+                        
+                            
+                            <td class="text-center">{{ item.StartDate }}</td>
+                            <td class="text-center">{{ item.ExpiryDate}}</td>
+                            
+                            <td class="text-center">
+
+                            <!-- Edit button -->
+                            <!-- <a href="/survey/edit/{{ item._id }}" class="btn btn-success btn-sm">  -->
+                                <button [routerLink]="['/survey/edit/', item._id]" class="btn bg-primary btn-primary btn-sm">
+                                    <i class="fas fa-pencil-alt" ></i></button>
+                            </td>
+                            <td class="text-center">
+                                
+                                <!--  DELETE button -->
+                                <a (click)="deleteMethod(item._id)" class="btn bg-danger btn-danger btn-sm">
+                                    <i class="fas fa-trash-alt"></i></a>
+                            </td>
+                        <!-- <% } else { }} -->
+                            <td class="text-center">
+                                <a routerLink ="/survey/details/{{ item._id }}">
+                                    {{ item.Title }}
+                                </a> 
+                            </td>
+                            <td class="text-center">{{ item.Author}}</td>
+                            <td class="text-center">{{ item.Description }}</td>
+                            <td class="text-center">{{ item.StartDate }}</td>
+                            <td class="text-center">{{ item.ExpiryDate}}</td>
+                        <!-- <% } }}                         -->
+                    </tr>
+                <!-- <% } }} -->
+            </table>
+        </div>
+    </div>
+  </main>
+<!-- <%- include ../partials/footer.ejs }} -->
+<app-footer></app-footer>
