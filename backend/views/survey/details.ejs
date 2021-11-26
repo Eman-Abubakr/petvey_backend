@@ -13,22 +13,26 @@ Fall 2021
         <div class="offset-md-3 col-md-6">
             <h1><%= title %></h1>
 
-                <div class="form-group">
-                    <label for="surveyTextField">Title</label>
+                <div class="form-group mt-2">
+                    <label for="surveyTextField">Title : </label>
                     <strong><%= survey.Title %></strong>
                 </div>
-                <div class="form-group">
-                    <label for="surveyTextField">Description</label>
+                <div class="form-group mt-2">
+                    <label for="surveyTextField">Description : </label>
                     <strong><%= survey.Description %></strong>
                 </div>
-                <div class="form-group">
+                <div class="form-group mt-2">
                     <label for="statusTextField"></label>
                     <strong><%= survey.QuestionsNumber %></strong>                    
                 </div>
-               
-                <br />
+                <div class="form-group mt-2">
+                    <label>Question : </label>
+                <% survey.Questions.forEach((question) => { %>
+                    <strong><%= question.QuestionBody %></strong>
+                <% }); %>
+                </div>            
                 
-                <a href="/survey/list" class="btn btn-warning">
+                <a href="/survey/list" class="btn btn-warning mt-5">
                     <i class="fas fa-undo"></i> 
                     Cancel
                 </a>
