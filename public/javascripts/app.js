@@ -49,26 +49,20 @@ if (getPage == "Add" || "Edit") {
       // Answer Type Radios
       var aTLabel = document.createElement("label");
       aTLabel.innerHTML = "Answer Type";
-      aTLabel.setAttribute("for", `Question${questionCount}AnswerTypeField`);
+      aTLabel.setAttribute("for", `AnswerTypeField`);
       container.appendChild(aTLabel);
       container.appendChild(document.createElement("br"));
 
       for (var i = 0; i < 5; i++) {
         // label
         var aLabel = document.createElement("label");
-        aLabel.setAttribute(
-          "for",
-          `Question${questionCount}AnswerRadioChoice${i + 1}`
-        );
+        aLabel.setAttribute("for", `AnswerRadio${i}`);
         var aRadioButton = document.createElement("input");
         aRadioButton.setAttribute("type", "radio");
-        aRadioButton.setAttribute(
-          "name",
-          `Question${questionCount}AnswerRadio`
-        );
+        aRadioButton.setAttribute("name", `AnswerRadio${i}`);
         aRadioButton.setAttribute(
           "id",
-          `Question${questionCount}AnswerRadioChoice${i + 1}`
+          `${questionCount}AnswerRadioChoice${i + 1}`
         );
 
         var aType;

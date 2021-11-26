@@ -25,10 +25,12 @@ Fall 2021
                     <label for="statusTextField"></label>
                     <strong><%= survey.QuestionsNumber %></strong>                    
                 </div>
-                <div class="form-group mt-2">
-                    <label>Question : </label>
-                <% survey.Questions.forEach((question) => { %>
+                <div class="form-group mt-2 mb-2 bg-light">
+                    <% survey.Questions.forEach((question, index) => { %>
+                    <label>Question <%=index + 1%>: </label>
                     <strong><%= question.QuestionBody %></strong>
+                    <p><%= question.AnswerType %></p>
+                    <br>
                 <% }); %>
                 </div>            
                 
