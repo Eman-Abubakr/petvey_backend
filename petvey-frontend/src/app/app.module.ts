@@ -6,14 +6,14 @@ import { PartialsModule } from './survey/partials/partials.module';
 import { SurveyModule } from './survey/survey/survey.module';
 import { indexModule } from './survey/index.module';
 import { IndexComponent } from './survey/index.component';
-import { ListComponent } from './survey/list.component';
+import { ListComponent } from './survey/survey/list.component';
 import { AuthModule } from "./survey/auth/auth.module";
 import { SignInComponent } from './survey/auth/login.component';
 import { SignUpComponent } from './survey/auth/register.component';
 import { AuthGuard } from "./survey/auth/auth.guard";
 import { AddEditComponent } from './survey/survey/add_edit.component'
-
-
+import { AboutComponent } from './survey/survey/about.component'
+import { DetailsComponent } from './survey/survey/details.component';
 @NgModule({
   declarations: [
     AppComponent
@@ -25,6 +25,8 @@ import { AddEditComponent } from './survey/survey/add_edit.component'
     SurveyModule,
     AuthModule,
     SignInComponent,
+    AboutComponent,
+    DetailsComponent
 
     RouterModule.forRoot([
       { path: "", component: IndexComponent },
@@ -33,6 +35,8 @@ import { AddEditComponent } from './survey/survey/add_edit.component'
        { path: "inventory/:mode/:id", component: AddEditComponent, canActivate: [AuthGuard] },
        { path: "users/login", component: SignInComponent },
        { path: "users/register", component: SignUpComponent },
+       { path: "survey/about", component: AboutComponent}
+       { path: "survey/details", component: DetailsComponent}
        { path: "**", redirectTo: "" }
     ])
   ],

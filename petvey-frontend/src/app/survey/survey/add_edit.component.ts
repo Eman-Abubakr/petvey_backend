@@ -27,9 +27,7 @@ export class AddEditComponent {
         if (this.editing) {
             this.item = repository.getItem(activeRoute.snapshot.params["id"]);
         } 
-        // else {
-        //     this.item.size = new Size();
-        // }        
+              
     }
 
     save(form: NgForm) {
