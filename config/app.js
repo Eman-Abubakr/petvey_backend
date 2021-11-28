@@ -5,6 +5,7 @@ Comp 229 Sec009
 Fall 2021
 */
 
+let cors = require("cors");
 var createError = require("http-errors");
 var express = require("express");
 
@@ -32,6 +33,10 @@ var apiRouter = require("../routes/api");
 
 // Instantiate App
 var app = express();
+
+// Enables cors.
+app.use(cors());
+app.options("*", cors());
 
 // initialize passport
 app.use(passport.initialize());
