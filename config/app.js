@@ -7,15 +7,8 @@ Fall 2021
 
 var createError = require("http-errors");
 var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
 
-let session = require("express-session");
 let passport = require("passport");
-let passportLocal = require("passport-local");
-let localStrategy = passportLocal.Strategy;
-let flash = require("connect-flash");
 
 //Database setup
 let mongoose = require("mongoose");
@@ -33,54 +26,18 @@ mongoDB.once("open", () => {
   console.log("Connected to MongoDB...");
 });
 
-var indexRouter = require("../routes/index");
+// Router Imports
 var usersRouter = require("../routes/users");
-var surveyRouter = require("../routes/survey");
 var apiRouter = require("../routes/api");
 
+// Instantiate App
 var app = express();
-
-// view engine setup
-app.set("views", path.join(__dirname, "../views"));
-app.set("view engine", "ejs");
-
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "../public")));
-app.use(express.static(path.join(__dirname, "../node_modules")));
-
-//setup express session
-app.use(
-  session({
-    secret: "SomeSecret",
-    saveUninitialized: false,
-    resave: false,
-  })
-);
-
-// initialize flash
-app.use(flash());
 
 // initialize passport
 app.use(passport.initialize());
-app.use(passport.session());
 
-// create a User Model Instance
-let userModel = require("../models/user");
-let User = userModel.User;
-
-// implement a User Authentication Strategy
-passport.use(User.createStrategy());
-
-// serialize and deserialize the User info
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
-app.use("/", indexRouter);
+// Route Middleware
 app.use("/users", usersRouter);
-app.use("/survey", surveyRouter);
 app.use("/api", apiRouter);
 
 // catch 404 and forward to error handler

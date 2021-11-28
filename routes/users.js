@@ -1,12 +1,8 @@
-var express = require('express');
-var router = express.Router();
+let express = require("express");
+let router = express.Router();
+let usersController = require("../controllers/user");
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {  
-  res.render('users', { 
-    title: 'Users',
-    userName: 'PetVey'
-  });
-});
+router.post("/signup", usersController.signup);
+router.post("/signin", usersController.signin);
 
 module.exports = router;

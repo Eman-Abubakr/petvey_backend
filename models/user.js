@@ -1,51 +1,103 @@
-// require modules for the User Model
-let mongoose = require('mongoose');
-let passportLocalMongoose = require('passport-local-mongoose');
+let mongoose = require("mongoose");
+let crypto = require("crypto");
+let Schema = mongoose.Schema;
 
-let User = mongoose.Schema
-(
-    {
-        username: 
-        {
-            type: String,
-            default: '',
-            trim: true,
-            required: 'username is required'
-        },
-       email: 
-       {
-            type: String,
-            default: '',
-            trim: true,
-            required: 'email address is required'
-       },
-       displayName: 
-       {
-            type: String,
-            default: '',
-            trim: true,
-            required: 'Display Name is required'
-       },
-       created: 
-       {
-            type: Date,
-            default: Date.now
-       },
-       update: 
-       {
-            type: Date,
-            default: Date.now
-       }
+let UserSchema = mongoose.Schema(
+  {
+    firstName: String,
+    lastName: String,
+    email: {
+      type: String,
+      match: [/.+\@.+\..+/, "Please fill a valid e-mail address"],
     },
-    {
-        collection: "users"
-    }
+    username: {
+      type: String,
+      unique: true,
+      required: "Username is required",
+      trim: true,
+    },
+    password: {
+      type: String,
+      validate: [
+        (password) => {
+          return password && password.length > 6;
+        },
+        "Password should be longer",
+      ],
+    },
+    salt: {
+      type: String,
+    },
+    provider: {
+      type: String,
+      required: "Provider is required",
+    },
+    providerId: String,
+    providerData: {},
+    created: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    collection: "users",
+  }
 );
 
-// configure options for User Model
+UserSchema.virtual("fullName")
+  .get(function () {
+    return this.firstName + " " + this.lastName;
+  })
+  .set(function (fullName) {
+    let splitName = fullName.split(" ");
+    this.firstName = splitName[0] || "";
+    this.lastName = splitName[1] || "";
+  });
 
-let options = ({ missingPasswordError: 'Wrong / Missing Password'});
+UserSchema.pre("save", function (next) {
+  if (this.password) {
+    this.salt = Buffer.from(
+      crypto.randomBytes(16).toString("base64"),
+      "base64"
+    );
+    this.password = this.hashPassword(this.password);
+  }
+  next();
+});
 
-User.plugin(passportLocalMongoose, options);
+UserSchema.methods.hashPassword = function (password) {
+  return crypto
+    .pbkdf2Sync(password, this.salt, 10000, 64, "sha512")
+    .toString("base64");
+};
 
-module.exports.User = mongoose.model('User', User);
+UserSchema.methods.authenticate = function (password) {
+  return this.password === this.hashPassword(password);
+};
+
+UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
+  var possibleUsername = username + (suffix || "");
+  this.findOne(
+    {
+      username: possibleUsername,
+    },
+    (err, user) => {
+      if (!err) {
+        if (!user) {
+          callback(possibleUsername);
+        } else {
+          return this.findUniqueUsername(username, (suffix || 0) + 1, callback);
+        }
+      } else {
+        callback(null);
+      }
+    }
+  );
+};
+
+UserSchema.set("toJSON", {
+  getters: true,
+  virtuals: true,
+});
+
+module.exports = mongoose.model("User", UserSchema);

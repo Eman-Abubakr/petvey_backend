@@ -1,12 +1,5 @@
 #!/usr/bin/env node
 
-/*
-PetVey webapp
-Group project
-Comp 229 Sec009
-Fall 2021
-*/
-
 /**
  * Module dependencies.
  */
@@ -14,6 +7,7 @@ Fall 2021
 var app = require("./config/app");
 var debug = require("debug")("comp229009-f2021-petvey:server");
 var http = require("http");
+const configurePassport = require("./config/passport");
 
 /**
  * Get port from environment and store in Express.
@@ -22,16 +16,16 @@ var http = require("http");
 var port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
 
+const passport = configurePassport();
+
 /**
  * Create HTTP server.
  */
-
 var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
@@ -90,5 +84,5 @@ function onListening() {
   var addr = server.address();
   var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   debug("Listening on " + bind);
-  console.log(`PetVey listening at http://localhost:${port}`);
+  console.log(`Example app listening at http://localhost:${port}`);
 }

@@ -1,15 +1,28 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 const apiController = require("../controllers/api");
 
 // CREATE
-router.post("/create", apiController.createSurvey);
+router.post(
+  "/create",
+  passport.authenticate("jwt", { session: false }),
+  apiController.createSurvey
+);
 // READ
 router.get("/list", apiController.getSurveyList);
 router.get("/:id", apiController.getSurvey);
 // UPDATE
-router.put("/edit/:id", apiController.updateSurvey);
+router.put(
+  "/edit/:id",
+  passport.authenticate("jwt", { session: false }),
+  apiController.updateSurvey
+);
 // DELETE
-router.delete("/delete/:id", apiController.deleteSurvey);
+router.delete(
+  "/delete/:id",
+  passport.authenticate("jwt", { session: false }),
+  apiController.deleteSurvey
+);
 
 module.exports = router;
