@@ -41,6 +41,9 @@ app.options("*", cors());
 // initialize passport
 app.use(passport.initialize());
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // Route Middleware
 app.use("/users", usersRouter);
 app.use("/api", apiRouter);
