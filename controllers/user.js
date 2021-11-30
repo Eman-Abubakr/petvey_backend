@@ -55,7 +55,7 @@ module.exports.signin = function (req, res, next) {
         const body = { _id: user._id, email: user.email };
         const token = jwt.sign({ user: body }, config.SecretOrKey);
 
-        return res.json({ success: true, token: token });
+        return res.json({ success: true, token: token, userID: user._id });
       });
     } catch (error) {
       console.log(error);

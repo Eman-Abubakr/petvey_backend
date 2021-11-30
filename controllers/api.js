@@ -25,6 +25,7 @@ module.exports.createSurvey = function (req, res, next) {
   });
 
   let newSurvey = survey({
+    owner: req.body.owner,
     CreationDate: Date.now(),
     StartDate: req.body.StartDate,
     ExpiryDate: req.body.ExpiryDate,
