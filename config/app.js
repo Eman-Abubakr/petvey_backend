@@ -34,17 +34,6 @@ var apiRouter = require("../routes/api");
 // Instantiate App
 var app = express();
 
-// Enables cors.
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, Authorization, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Access-Control-Request-Headers"
-  );
-  next();
-});
-
 // initialize passport
 app.use(passport.initialize());
 
@@ -52,8 +41,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Route Middleware
-app.use("/users", usersRouter);
-app.use("/api", apiRouter);
+app.use("/users", cors(), usersRouter);
+app.use("/api", cors(), apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
