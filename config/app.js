@@ -35,18 +35,7 @@ var apiRouter = require("../routes/api");
 var app = express();
 
 // Enables cors.
-const whitelist = ["http://localhost:4200", "http://localhost:4200/*"];
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: false,
-};
-app.use(cors(corsOptions));
+app.use(cors());
 
 // initialize passport
 app.use(passport.initialize());
