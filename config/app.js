@@ -40,13 +40,11 @@ app.use(passport.initialize());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:4200");
-  res.header("Access-Control-Allow-Methods", "*");
-  res.header("Access-Control-Allow-Headers", "*");
-  res.header("Access-Control-Allow-Credentials", true);
-  next();
-});
+var corsOptions = {
+  origin: "http://example.com",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors(corsOptions));
 
 // Route Middleware
 app.use("/users", usersRouter);
