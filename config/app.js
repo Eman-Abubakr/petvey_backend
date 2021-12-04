@@ -41,7 +41,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 var corsOptions = {
-  origin: "*",
+  origin: "http://localhost:4200",
+  methods: "GET,PUT,POST,DELETE",
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 app.use(cors(corsOptions));
