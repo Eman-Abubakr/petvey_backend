@@ -39,7 +39,7 @@ let whitelist = ["http://localhost:4200", "http://abc.com"];
 
 app.use(
   cors({
-    origin: "*",
+    origin: "http://localhost:4200",
   })
 );
 
