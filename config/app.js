@@ -33,18 +33,17 @@ var apiRouter = require("../routes/api");
 
 // Instantiate App
 var app = express();
+app.use(cors());
 
 // initialize passport
 app.use(passport.initialize());
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-app.use(cors());
-
 // Route Middleware
 app.use("/users", usersRouter);
 app.use("/api", apiRouter);
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

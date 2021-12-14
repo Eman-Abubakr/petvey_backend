@@ -2,28 +2,6 @@ let survey = require("../models/survey");
 
 // CREATE
 module.exports.createSurvey = function (req, res, next) {
-  // Iterate over request, using regex to pull out questions and answer types and pushing them on their respective arrays
-  let questionBodys = [];
-  let questionAnswers = [];
-  for (let [key, value] of Object.entries(req.body)) {
-    if (/Question/.test(key)) {
-      questionBodys.push(value);
-    } else if (/AnswerRadio/.test(key)) {
-      questionAnswers.push(value);
-    }
-  }
-
-  // Iterate over the question array, creating survey question objects with the body and answer arrays
-  let surveyQuestionsProcessed = [];
-  questionBodys.forEach((questionBody, index) => {
-    let newSurveyQuestion = {
-      QuestionBody: questionBody,
-      AnswerType: questionAnswers[index],
-      MultipleChoiceAnswers: [],
-    };
-    surveyQuestionsProcessed.push(newSurveyQuestion);
-  });
-
   let newSurvey = survey({
     owner: req.body.owner,
     CreationDate: Date.now(),
@@ -32,7 +10,7 @@ module.exports.createSurvey = function (req, res, next) {
     Author: req.body.Author,
     Title: req.body.Title,
     Description: req.body.Description,
-    Questions: surveyQuestionsProcessed,
+    Questions: req.body.Questions,
     Meta: {
       Completions: 0,
       Views: 0,
@@ -92,28 +70,6 @@ module.exports.getSurvey = function (req, res, next) {
 };
 // UPDATE
 module.exports.updateSurvey = function (req, res, next) {
-  // Iterate over request, using regex to pull out questions and answer types and pushing them on their respective arrays
-  let questionBodys = [];
-  let questionAnswers = [];
-  for (let [key, value] of Object.entries(req.body)) {
-    if (/Question/.test(key)) {
-      questionBodys.push(value);
-    } else if (/AnswerRadio/.test(key)) {
-      questionAnswers.push(value);
-    }
-  }
-
-  // Iterate over the question array, creating survey question objects with the body and answer arrays
-  let surveyQuestionsProcessed = [];
-  questionBodys.forEach((questionBody, index) => {
-    let newSurveyQuestion = {
-      QuestionBody: questionBody,
-      AnswerType: questionAnswers[index],
-      MultipleChoiceAnswers: [],
-    };
-    surveyQuestionsProcessed.push(newSurveyQuestion);
-  });
-
   let id = req.params.id;
 
   survey.findOneAndUpdate(
@@ -125,7 +81,7 @@ module.exports.updateSurvey = function (req, res, next) {
         Description: req.body.Description,
         StartDate: req.body.StartDate,
         ExpiryDate: req.body.ExpiryDate,
-        Questions: surveyQuestionsProcessed,
+        Questions: req.body.Questions,
       },
     },
     (err, updatedSurvey) => {
