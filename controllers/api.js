@@ -101,6 +101,43 @@ module.exports.updateSurvey = function (req, res, next) {
     }
   );
 };
+module.exports.submitSurveyResponse = function (req, res, next) {
+  let id = req.params.id;
+  console.log(req.body);
+  console.log("req to submit");
+  res.status(200).json({
+    success: true,
+    message: `responded to Survey ${id} Successfully`,
+  });
+  /*survey.findOneAndUpdate(
+    { _id: id },
+    {
+      $set: {
+        Title: req.body.Title,
+        Author: req.body.Author,
+        Description: req.body.Description,
+        StartDate: req.body.StartDate,
+        ExpiryDate: req.body.ExpiryDate,
+        Questions: req.body.Questions,
+      },
+    },
+    (err, updatedSurvey) => {
+      if (err) {
+        console.error(err);
+        res.status(400).json({
+          success: false,
+          message: getErrorMessage(err),
+        });
+      } else {
+        res.status(200).json({
+          success: true,
+          message: `Updated Survey ${id} Successfully`,
+          updatedSurvey: updatedSurvey,
+        });
+      }
+    }
+  );*/
+};
 // DELETE
 module.exports.deleteSurvey = function (req, res, next) {
   const id = req.params.id;

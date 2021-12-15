@@ -18,6 +18,7 @@ router.put(
   passport.authenticate("jwt", { session: false }),
   apiController.updateSurvey
 );
+router.post("/details/:id", apiController.submitSurveyResponse);
 // DELETE
 router.delete(
   "/delete/:id",
