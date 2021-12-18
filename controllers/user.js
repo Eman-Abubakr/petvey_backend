@@ -53,7 +53,7 @@ module.exports.signin = function (req, res, next) {
         if (error) return next(error);
 
         const body = { _id: user._id, email: user.email };
-        const token = jwt.sign({ user: body }, config.SecretOrKey, {algorithm: 'HS512', expiresIn: 1800});
+        const token = jwt.sign({ user: body }, config.SecretOrKey, {algorithm: 'HS512', expiresIn: 1900});
 
         return res.json({ success: true, token: token, userID: user._id });
       });
